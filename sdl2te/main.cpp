@@ -5,6 +5,8 @@
 #include "wClass.h"
 #include "imgRenderer.h"
 #include "RayCasting.h"
+#include "player.h"
+#include "keyboard.h"
 
 struct mousePosi
 {
@@ -16,50 +18,65 @@ int main(int argc, char** argv)
 {
 	_sdlWindow* window = new _sdlWindow(800,600,100,100,"Hello World!", SDL_WINDOW_OPENGL);
 	SDL_Event e;
-	SDL_Surface* surf;
+
+	SDL_Surface* surf = NULL;
 	SDL_Renderer* renderer = window->getRenderer(NULL,surf);
-	image* ImgTest= new image(renderer,window->window,surf,"C:/items/charImage.PNG");
 	Uint32 mousePosition = NULL;
 	mousePosi cursorLocation = { 0,0 };
 	rayCast r;
 	vec2 pos1 = { 0 , 0 };
-	vec2 pos2 = { 100,100 };
 	geometry geoHandler;
 
+	player plr(renderer, window->window, "C:/items/charImage.PNG");
+	vec2 pos = { 100,100 };
+	plr.setPosition(pos);
+	plr.setSize(100, 100);
+	bool drawDebugGeometry = true;
 
-	bool drawDebugGeometry = false;
-
-	vec2 oRpos = {
-		oRpos.x = ImgTest->renderedPosition.x,
-		oRpos.y = ImgTest->renderedPosition.y
-	};
-
-	ImgTest->setRenderedPosition(100, 100, 64, 64);
-	
+	keyboard keyBoard;
+	const Uint8* state;
 	while (true)
 	{
-
 		if (SDL_PollEvent(&e) == SDL_QUIT)
 			break;
 
 
 		SDL_SetRenderDrawColor(renderer, 100, 149, 237, 255);
 		mousePosition = SDL_GetMouseState(&cursorLocation.x, &cursorLocation.y);
-		
 		SDL_RenderClear(renderer);
+		SDL_PumpEvents();
+		
+		state = SDL_GetKeyboardState(NULL);
+		if (state[SDL_SCANCODE_W])
+		{
+			plr.addSDL_RectXY(0, -1);
+
+		}		
+		if (state[SDL_SCANCODE_S])
+		{
+			plr.addSDL_RectXY(0, 1);
+
+		}		
+		if (state[SDL_SCANCODE_A])
+		{
+			plr.addSDL_RectXY(-1, 0);
+
+		}		
+		if (state[SDL_SCANCODE_D])
+		{
+			plr.addSDL_RectXY(1, 0);
+
+		}
+
 		if (drawDebugGeometry)
 		{
-			pos1.x = cursorLocation.x;
-			pos1.y = cursorLocation.y;
-			geoHandler.drawLine(renderer,pos1, pos2);
+			
 			
 		}
 		
 		// game stuffs
-
-		ImgTest->setAngle(r.angleBetweenPos(pos1, oRpos));
-		std::cout << r.angleBetweenPos(oRpos, pos1) << std::endl;
-		ImgTest->createImage(renderer);
+		
+		plr.renderPlayer(renderer,window->window);
 
 
 		//end

@@ -15,7 +15,7 @@ private:
 public:
 	void setAngle(double angle1) { this->angle = angle; }
 	SDL_Rect renderedPosition;
-	void setRenderedPosition(float x, float y, float w, float h)
+	void setRenderedPosition(float x, float y, float w, float h) // bit obsolete code tbf
 	{
 		renderedPosition.x = x;
 		renderedPosition.y = y;
@@ -25,13 +25,12 @@ public:
 
 	void flipImage(SDL_RendererFlip flipIMG){this->flip = flipIMG;}
 
-	image(SDL_Renderer* render, SDL_Window* wnd, SDL_Surface* surface, const char* filePath)
+	image(SDL_Renderer* render, SDL_Window* wnd, const char* filePath)
 	{
 		this->surf = IMG_Load(filePath);
 		this->tex = SDL_CreateTextureFromSurface(render, this->surf);
 		printf(SDL_GetError());
 		this->window = wnd;
-		this->surf = surface;
 	}
 	~image()
 	{
@@ -39,7 +38,7 @@ public:
 		delete this->window;
 	}
 
-	void createImage(SDL_Renderer* renderer)
+	void createImage(SDL_Renderer* renderer,double angle)
 	{
 		SDL_RenderCopyEx(renderer,this->tex,NULL,&this->renderedPosition,angle,NULL,flip);
 	}

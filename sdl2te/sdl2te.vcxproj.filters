@@ -25,6 +25,9 @@
     <Filter Include="Source Files\RayCasting">
       <UniqueIdentifier>{18605388-46ec-431c-9208-67da83f6653b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\debug">
+      <UniqueIdentifier>{cf430107-b264-434b-964c-03a106cdce06}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -37,9 +40,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="imgRenderer.cpp">
@@ -61,6 +61,15 @@
     </ClInclude>
     <ClInclude Include="RayCasting.h">
       <Filter>Source Files\RayCasting</Filter>
+    </ClInclude>
+    <ClInclude Include="debugger.h">
+      <Filter>Source Files\debug</Filter>
+    </ClInclude>
+    <ClInclude Include="player.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="keyboard.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

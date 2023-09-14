@@ -134,14 +134,16 @@
   <ItemGroup>
     <ClCompile Include="imgRenderer.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="player.cpp" />
     <ClCompile Include="scene.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="wClass.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="debugger.h" />
     <ClInclude Include="imgRenderer.h" />
+    <ClInclude Include="keyboard.h" />
     <ClInclude Include="objectManager.h" />
+    <ClInclude Include="player.h" />
     <ClInclude Include="RayCasting.h" />
     <ClInclude Include="scene.h" />
     <ClInclude Include="wClass.h" />
