@@ -7,6 +7,11 @@
 #include "RayCasting.h"
 #include "player.h"
 #include "keyboard.h"
+#include "collisionHandler.h"
+#include "asteroid.h"
+
+
+// macros
 
 struct mousePosi
 {
@@ -16,57 +21,107 @@ struct mousePosi
 
 int main(int argc, char** argv)
 {
-	_sdlWindow* window = new _sdlWindow(800,600,100,100,"Hello World!", SDL_WINDOW_OPENGL);
-	SDL_Event e;
+	int SCREENWIDTH = 800;
+	int SCREENHEIGHT = 600;
 
+	// inits
+	_sdlWindow* window = new _sdlWindow(SCREENWIDTH,SCREENHEIGHT,100,100,"Hello World!", SDL_WINDOW_OPENGL);
+	SDL_Event e;
 	SDL_Surface* surf = NULL;
-	SDL_Renderer* renderer = window->getRenderer(NULL,surf);
+	SDL_Renderer* renderer = window->getRenderer(SDL_RENDERER_PRESENTVSYNC || SDL_RENDERER_ACCELERATED,surf);
 	Uint32 mousePosition = NULL;
 	mousePosi cursorLocation = { 0,0 };
 	rayCast r;
-	vec2 pos1 = { 0 , 0 };
 	geometry geoHandler;
+	collisionH* collH = new collisionH();
 
+	//geohandler
+	geoHandler.setRect(400,400,100,100);
+
+	//making player
 	player plr(renderer, window->window, "C:/items/charImage.PNG");
-	vec2 pos = { 100,100 };
-	plr.setPosition(pos);
 	plr.setSize(100, 100);
+	vec2 pos = { (SCREENWIDTH/2)-50,(SCREENHEIGHT/2 )-50};
+	plr.setPosition(pos);
+
+	// other
 	bool drawDebugGeometry = true;
+
 
 	keyboard keyBoard;
 	const Uint8* state;
+
+	SDL_Color color = {255,0,0,255};
+	//object o(renderer,window->window,400,400,100,100);
+
+	SDL_Scancode lastKeyPress;
+
+	bool playerColliding = false;
+
+	float oldtime = 0.0f;
+	float newtime = 0.0f;
+	float deltaTime = 0.0f;
+	float framecap = 1;
+	int frameTime = 0;
+	// asteroid a(renderer,window->window,SCREENWIDTH,SCREENHEIGHT);
+
+	int timeToSpawn = 20;
+
+	//Objectlist
+	std::vector<asteroid*> asteroidsInGame;
+
 	while (true)
 	{
+		frameTime++;
+		Uint64 start = SDL_GetPerformanceCounter();
+
+		deltaTime = oldtime - newtime;
+		oldtime = newtime;
+		//framecap
+		//SDL_Delay(framecap - frametime);
 		if (SDL_PollEvent(&e) == SDL_QUIT)
 			break;
-
-
+		
 		SDL_SetRenderDrawColor(renderer, 100, 149, 237, 255);
 		mousePosition = SDL_GetMouseState(&cursorLocation.x, &cursorLocation.y);
 		SDL_RenderClear(renderer);
 		SDL_PumpEvents();
 		
-		state = SDL_GetKeyboardState(NULL);
-		if (state[SDL_SCANCODE_W])
-		{
-			plr.addSDL_RectXY(0, -1);
+		// game stuff
 
-		}		
-		if (state[SDL_SCANCODE_S])
-		{
-			plr.addSDL_RectXY(0, 1);
+		//geoHandler.drawFbox(renderer,color);
 
-		}		
-		if (state[SDL_SCANCODE_A])
-		{
-			plr.addSDL_RectXY(-1, 0);
+		// Asteroid code
 
-		}		
-		if (state[SDL_SCANCODE_D])
-		{
-			plr.addSDL_RectXY(1, 0);
+		// spawning code complete
 
+		timeToSpawn = timeToSpawn -1;
+		if (timeToSpawn <= 0)
+		{
+			std::cout << "Spawning asteroid" << std::endl;
+			asteroidsInGame.push_back(new asteroid(renderer, window->window, SCREENWIDTH, SCREENHEIGHT));
+			// need to update all roids
+			timeToSpawn = 200;
 		}
+		else {
+			for (int i = 0; i < asteroidsInGame.size(); i++)
+			{
+				asteroidsInGame[i]->update(renderer, geoHandler, collH, frameTime);
+			}
+		}
+		// Player Creator
+		plr.renderPlayer(renderer,window->window,collH);
+		
+		// Need to make character movable and assign HP to each of asteroids tomorrow
+
+
+
+		//end
+		SDL_RenderPresent(renderer);
+
+		state = SDL_GetKeyboardState(NULL);
+
+
 
 		if (drawDebugGeometry)
 		{
@@ -74,17 +129,18 @@ int main(int argc, char** argv)
 			
 		}
 		
-		// game stuffs
+		Uint64 end = SDL_GetPerformanceCounter();
+		float elapsedMS = (end - start) / (float)SDL_GetPerformanceFrequency() * 1000.0f;
+		SDL_Delay(floor(16.666f - elapsedMS));
 		
-		plr.renderPlayer(renderer,window->window);
-
-
-		//end
-		SDL_RenderPresent(renderer);
-
 
 	}
 
+
+	for (int i = 0; i < asteroidsInGame.size(); i++)
+	{
+		delete asteroidsInGame[i];
+	}
 	SDL_Quit();
 	return 0;
 }

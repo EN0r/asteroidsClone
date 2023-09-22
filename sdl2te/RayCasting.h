@@ -5,6 +5,14 @@ struct vec2
 {
 	float x;
 	float y;
+	inline vec2 operator+(vec2 a)
+	{
+		return {x+a.x,y+a.y};
+	}
+	inline vec2 operator-(vec2 a)
+	{
+		return {x-a.x,y-a.y};
+	}
 };
 
 class rayCast

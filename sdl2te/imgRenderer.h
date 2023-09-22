@@ -50,15 +50,29 @@ class geometry
 {
 private:
 
-
+	SDL_Rect szPos = { 0,0,0,0 };
 
 public:
+
+	void setRect(int x, int y, int w, int h)
+	{
+		this->szPos.x = x;
+		this->szPos.y = y;
+		this->szPos.w = w;
+		this->szPos.h = h;
+	}
+
+	SDL_Rect getRect(){return this->szPos;} // getter setter
 
 	void drawLine(SDL_Renderer* renderer, vec2 pos1, vec2 pos2)
 	{
 		SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
 		SDL_RenderDrawLineF(renderer,pos1.x, pos1.y, pos2.x, pos2.y);
 	}
-
+	void drawFbox(SDL_Renderer* renderer, SDL_Color color)
+	{
+		SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
+		SDL_RenderFillRect(renderer,&szPos);
+	}
 };
 

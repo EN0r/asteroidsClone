@@ -1,12 +1,14 @@
 #pragma once
 #include "imgRenderer.h"
 #include "RayCasting.h"
+#include "collisionHandler.h"
 class player
 {
 private:
 	int w, h;
 	const char* texPath;
 	SDL_Rect playerSZP = { 0,0,0,0 };
+	bool collision = true;
 public:
 	player(SDL_Renderer* renderer, SDL_Window* window, const char* path);
 	~player();
@@ -18,6 +20,11 @@ public:
 	{
 		this->playerSZP.x = pos.x;
 		this->playerSZP.y = pos.y;
+	}
+	vec2 getPosition()
+	{
+		vec2 pos = { playerSZP.x,playerSZP.y };
+		return pos;
 	}
 
 	SDL_Rect getSDL_Rect(){return playerSZP;}
@@ -34,8 +41,13 @@ public:
 		this->playerSZP.h= h1;
 	}
 
-	bool renderPlayer(SDL_Renderer* renderer, SDL_Window* window)
+	bool renderPlayer(SDL_Renderer* renderer, SDL_Window* window, collisionH* c)
 	{
+
+		if (this->collision == true)
+		{
+			c->thisObejctASN = this->playerSZP;
+		}
 		if (sizeof(playerSZP) > 0)
 		{
 			plrIMG->renderedPosition = this->playerSZP;

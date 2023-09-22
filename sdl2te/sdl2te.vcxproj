@@ -139,7 +139,12 @@
     <ClCompile Include="wClass.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="asteroid.h" />
+    <ClInclude Include="asteroidManager.h" />
+    <ClInclude Include="collisionHandler.h" />
     <ClInclude Include="debugger.h" />
+    <ClInclude Include="game.h" />
+    <ClInclude Include="image.h" />
     <ClInclude Include="imgRenderer.h" />
     <ClInclude Include="keyboard.h" />
     <ClInclude Include="objectManager.h" />

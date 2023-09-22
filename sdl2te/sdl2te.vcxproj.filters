@@ -71,5 +71,20 @@
     <ClInclude Include="keyboard.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="collisionHandler.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="asteroid.h">
+      <Filter>Source Files\objectSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="asteroidManager.h">
+      <Filter>Source Files\objectSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="image.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="game.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
