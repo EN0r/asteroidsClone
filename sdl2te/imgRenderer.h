@@ -51,7 +51,6 @@ class geometry
 private:
 
 	SDL_Rect szPos = { 0,0,0,0 };
-
 public:
 
 	void setRect(int x, int y, int w, int h)

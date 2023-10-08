@@ -8,6 +8,7 @@ private:
 	int w, h;
 	const char* texPath;
 	SDL_Rect playerSZP = { 0,0,0,0 };
+	SDL_Rect collisionBox = { 0,0,0,0 };
 	bool collision = true;
 public:
 	player(SDL_Renderer* renderer, SDL_Window* window, const char* path);
@@ -20,6 +21,11 @@ public:
 	{
 		this->playerSZP.x = pos.x;
 		this->playerSZP.y = pos.y;
+		if (collision)
+		{
+			this->collisionBox.x = pos.x;
+			this->collisionBox.y = pos.y;
+		}
 	}
 	vec2 getPosition()
 	{
@@ -39,6 +45,11 @@ public:
 		this->h = h1;
 		this->playerSZP.w = w1;
 		this->playerSZP.h= h1;
+		if (collision)
+		{
+			this->collisionBox.w = w1;
+			this->collisionBox.h = h1;
+		}
 	}
 
 	bool renderPlayer(SDL_Renderer* renderer, SDL_Window* window, collisionH* c)
@@ -46,7 +57,7 @@ public:
 
 		if (this->collision == true)
 		{
-			c->thisObejctASN = this->playerSZP;
+			c->thisObejctASN = this->collisionBox;
 		}
 		if (sizeof(playerSZP) > 0)
 		{

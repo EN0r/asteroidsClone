@@ -29,7 +29,7 @@ public:
 
 	double anglefromPosition(vec2 p1, vec2 p2)
 	{
-		double aPos = atan2(p1.y - p2.y, p1.x - p2.x) * 180 / PI;
+		double aPos = (SDL_atan2(p1.y - p2.y, p1.x - p2.x)) * -180 / PI;
 		aPos *= -1;
 		return aPos;
 	}

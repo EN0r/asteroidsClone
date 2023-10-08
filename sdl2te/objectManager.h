@@ -13,6 +13,7 @@ public:
 	image* objIMG = NULL;
 	double angle = 0.0f;
 
+	SDL_Rect getRect(){return this->thisSize;}
 	object(SDL_Renderer* renderer, SDL_Window* window, int x = 0, int y = 0, int w = 0, int h = 0, const char* path = "C:/items/error.png", SDL_Color col = {255,0,0,255}) // if no color picked then it defaults as red
 	{
 		thisSize = { x,y,w,h };
@@ -64,11 +65,12 @@ public:
 		return false;
 	}
 
-	inline void update(SDL_Renderer* renderer, geometry h,collisionH *collhandle) 
+	inline void update(SDL_Renderer* renderer,collisionH *collhandle, int& ID) 
 	{
 		if (this->canCollide)
 		{
 			collhandle->collisionComps.push_back(this->thisSize);
+			ID = collhandle->collisionComps.size();
 			if (collhandle->objectCollidesWith())
 			{
 				std::cout << "Colliding!!" << std::endl;
@@ -79,10 +81,6 @@ public:
 		if (renderasImage)
 		{
 			this->renderObject(renderer,collhandle);
-		}
-		else
-		{
-			h.drawFbox(renderer, this->color);
 		}
 	}
 

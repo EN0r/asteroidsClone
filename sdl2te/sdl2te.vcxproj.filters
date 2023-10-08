@@ -28,6 +28,9 @@
     <Filter Include="Source Files\debug">
       <UniqueIdentifier>{cf430107-b264-434b-964c-03a106cdce06}</UniqueIdentifier>
     </Filter>
+    <Filter Include="imgui">
+      <UniqueIdentifier>{e83cd877-292b-4347-bcfb-e4aa72bfc4d1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -44,6 +47,30 @@
     </ClCompile>
     <ClCompile Include="imgRenderer.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\imgui\imgui_demo.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\imgui\imgui_draw.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\imgui\imgui_impl_sdl.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\imgui\imgui_impl_sdlrenderer.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\imgui\imgui_stdlib.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\imgui\imgui_tables.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\imgui\imgui_widgets.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="vendor\imgui\imgui.cpp">
+      <Filter>imgui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -84,6 +111,9 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="game.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="windowBorder.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

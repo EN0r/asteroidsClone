@@ -9,7 +9,7 @@ public:
 
 	
 
-	bool objectCollidesWith()
+	inline bool objectCollidesWith()
 	{
 		if (collisionComps.size() > 0)
 		{
@@ -27,5 +27,15 @@ public:
 			}
 		}
 	}
+
+	inline void drawCollisionBoxes(SDL_Renderer* renderer, SDL_Color color = {0,255,0,255})
+	{
+		SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
+		for (auto i : collisionComps)
+		{
+			SDL_RenderDrawRect(renderer, &i);
+		}
+	}
+
 
 };
